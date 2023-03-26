@@ -52,9 +52,9 @@ module type S = sig
   type error = private [> Net.error ]
   val pp_error: error Fmt.t
   type t
-  val disconnect : t -> unit Lwt.t
-  val write: t -> size:int -> (Cstruct.t -> int) -> (unit, error) result Lwt.t
-  val listen: t -> header_size:int -> (Cstruct.t -> unit Lwt.t) -> (unit, error) result Lwt.t
+  val disconnect : t -> unit
+  val write: t -> size:int -> (Cstruct.t -> int) -> (unit, error) result
+  val listen: sw:Eio.Switch.t -> t -> header_size:int -> (Cstruct.t -> unit) -> (unit, error) result
   val mac: t -> Macaddr.t
   val mtu: t -> int
   val get_stats_counters: t -> stats
